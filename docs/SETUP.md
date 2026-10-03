@@ -36,7 +36,7 @@ In the FiestaBoard web UI:
 4. Open **APIs & Services** > **Credentials**, press **Create credentials** > **API key**, and copy the key.
 5. Recommended: press **Edit API key**, and under **API restrictions** choose **Restrict key** and tick only **YouTube Data API v3**. Leave **Application restrictions** at **None**: FiestaBoard calls YouTube from your own network, not from a website.
 
-Each key gets 10,000 free quota units a day. This plugin uses 1 unit per check, so the default 30-minute refresh uses 48.
+Each Google Cloud project gets 10,000 free quota units a day. This plugin uses 1 unit per check, so the default 30-minute refresh uses 48.
 
 ### 3. Configure the plugin
 
@@ -104,7 +104,7 @@ This plugin has no environment variables; everything is set in the web UI.
 - The key's restrictions block the call. Edit the key: allow **YouTube Data API v3** under **API restrictions**, and set **Application restrictions** to **None**.
 
 **"This API key has used its daily YouTube quota"**
-- The key shares its 10,000 daily units with anything else using it. The last numbers stay on the board, and the quota resets at midnight Pacific time. Raise **Refresh Interval** or use a key of its own.
+- The 10,000 daily units belong to the Google Cloud project, so every key and app in that project shares them. The last numbers stay on the board, and the quota resets at midnight Pacific time. Raise **Refresh Interval** or use a key from a project of its own.
 
 **"YouTube found no channel"**
 - Check the handle on the channel's page (it starts with `@`), or use the channel ID instead. Handles are matched exactly as YouTube has them.

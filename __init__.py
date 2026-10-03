@@ -22,7 +22,7 @@ import threading
 import time
 import unicodedata
 from typing import Any, Dict, List, Optional, Tuple
-from urllib.parse import urlparse
+from urllib.parse import unquote, urlparse
 
 import requests
 from src.board_chars import BoardChars
@@ -53,8 +53,9 @@ TILE_LOGO = "{63}"  # red
 HIDDEN = "HIDDEN"
 
 CHANNEL_ID_RE = re.compile(r"^UC[A-Za-z0-9_-]{22}$")
-# YouTube handles are 3-30 letters, digits, dots, dashes and underscores.
-HANDLE_RE = re.compile(r"^@?([A-Za-z0-9._-]{3,30})$")
+# YouTube handles are 3-30 letters (from many scripts, not just Latin),
+# digits, dots, middle dots, dashes and underscores.
+HANDLE_RE = re.compile(r"^@?([\w.\u00b7-]{3,30})$")
 
 NO_KEY_ERROR = "Add your YouTube Data API key in this plugin's settings."
 BAD_CHANNEL_ERROR = (
@@ -155,7 +156,7 @@ def parse_channel(text: Any) -> Optional[Tuple[str, str]]:
     if "youtube.com/" in value:
         if "://" not in value:
             value = "https://" + value
-        parts = [p for p in urlparse(value).path.split("/") if p]
+        parts = [unquote(p) for p in urlparse(value).path.split("/") if p]
         if len(parts) >= 2 and parts[0] == "channel":
             value = parts[1]
         elif parts and parts[0].startswith("@"):

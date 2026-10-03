@@ -69,6 +69,9 @@ def test_with_commas():
         ("https://www.youtube.com/@MapleRoad", ("forHandle", "@MapleRoad")),
         ("youtube.com/@MapleRoad/videos", ("forHandle", "@MapleRoad")),
         ("https://m.youtube.com/@MapleRoad?si=x", ("forHandle", "@MapleRoad")),
+        # Handles may use letters from many scripts, and middle dots.
+        ("@café·tv", ("forHandle", "@café·tv")),
+        ("https://www.youtube.com/@%E6%96%99%E7%90%86%E3%83%81%E3%83%A3%E3%83%B3%E3%83%8D%E3%83%AB", ("forHandle", "@料理チャンネル")),
         ("", None),
         ("@", None),
         ("has space", None),
